@@ -1,10 +1,11 @@
 name = "miguelet"
 main = "src/index.ts"
+workers_dev = true
 account_id = "ce4ddda138c8e2c574a070dbbb67e6df"
 compatibility_date = "2023-05-09"
 
 
 [[r2_buckets]]
-binding = "MY_BUCKET"
+binding = "BUCKET"
 bucket_name = "miguelet"
 preview_bucket_name = "miguelet"

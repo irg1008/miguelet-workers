@@ -1,2 +1,5 @@
-# Optimize audio fetching using cache
-<https://developers.cloudflare.com/r2/examples/cache-api/>
+# TODO
+
+## Optimize audio fetching using cache
+
+To cache our audios we need a custom domain.
