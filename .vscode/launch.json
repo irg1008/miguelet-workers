@@ -1,0 +1,10 @@
+{
+	"configurations": [
+		{
+			"name": "🚀 Wrangler Dev",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm run start"
+		}
+	]
+}
