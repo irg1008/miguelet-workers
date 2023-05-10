@@ -1,6 +1,5 @@
 name = "miguelet"
 main = "src/index.ts"
-workers_dev = true
 account_id = "ce4ddda138c8e2c574a070dbbb67e6df"
 compatibility_date = "2023-05-09"
 

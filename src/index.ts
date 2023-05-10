@@ -1,10 +1,4 @@
-/**
- * Run `wrangler publish src/index.ts --name my-worker` to publish your worker
- * Learn more at https://developers.cloudflare.com/workers/
- */
-
 export interface Env {
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
 	MY_BUCKET: R2Bucket;
 }
 
@@ -16,10 +10,6 @@ export default {
 	): Promise<Response> {
 		const { method } = request;
 
-		const url = new URL(request.url);
-		const key = url.pathname.slice(1);
-		const name = decodeURIComponent(key);
-
 		if (method !== "GET")
 			return new Response("Method not allowed", {
 				status: 405,
@@ -28,6 +18,12 @@ export default {
 				},
 			});
 
+		const url = new URL(request.url);
+		const key = url.pathname.slice(1);
+		const name = decodeURIComponent(key);
+
+		if (!name) return new Response("Name cannot be empty", { status: 400 });
+
 		const bucket = env.MY_BUCKET;
 
 		const file = await bucket.get(name);
@@ -35,7 +31,7 @@ export default {
 
 		const headers = new Headers();
 		file.writeHttpMetadata(headers);
-		headers.set("Content-Type", "audio/ogg");
+		headers.set("content-type", "audio/ogg");
 		headers.set("etag", file.etag);
 
 		return new Response(file.body, {
