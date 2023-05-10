@@ -7,7 +7,7 @@
     "deploy": "wrangler publish",
     "test": "vitest",
     "lint": "eslint ./src/*",
-    "format": "prettier --write ./src/*"
+    "fmt": "prettier --write ./src/*"
   },
   "dependencies": {
     "fuse.js": "^6.6.2",
