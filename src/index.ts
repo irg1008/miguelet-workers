@@ -1,41 +1,21 @@
-export interface Env {
-	MY_BUCKET: R2Bucket;
-}
+import { Env } from '@/env';
+import { Hono } from 'hono';
 
-export default {
-	async fetch(
-		request: Request,
-		env: Env,
-		ctx: ExecutionContext
-	): Promise<Response> {
-		const { method } = request;
+const app = new Hono<{ Bindings: Env }>();
 
-		if (method !== "GET")
-			return new Response("Method not allowed", {
-				status: 405,
-				headers: {
-					Allow: "GET",
-				},
-			});
+app.get('/audios/:name?', async (c) => {
+  const { name } = c.req.param();
+  if (!name) return c.text('Name not valid', 404);
 
-		const url = new URL(request.url);
-		const key = url.pathname.slice(1);
-		const name = decodeURIComponent(key);
+  const file = await c.env.BUCKET.get(name);
+  if (!file) return c.text('File not found', 404);
 
-		if (!name) return new Response("Name cannot be empty", { status: 400 });
+  const headers = new Headers();
+  file.writeHttpMetadata(headers);
+  headers.set('content-type', 'audio/ogg');
+  headers.set('etag', file.etag);
 
-		const bucket = env.MY_BUCKET;
+  return c.body(file.body, { headers });
+});
 
-		const file = await bucket.get(name);
-		if (!file) return new Response("File not found", { status: 404 });
-
-		const headers = new Headers();
-		file.writeHttpMetadata(headers);
-		headers.set("content-type", "audio/ogg");
-		headers.set("etag", file.etag);
-
-		return new Response(file.body, {
-			headers,
-		});
-	},
-};
+export default app;
