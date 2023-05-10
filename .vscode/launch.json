@@ -11,6 +11,12 @@
       "type": "node-terminal",
       "request": "launch",
       "command": "npm run test"
+    },
+    {
+      "name": "🆙 Deploy",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run deploy"
     }
   ]
 }

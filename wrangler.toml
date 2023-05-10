@@ -6,6 +6,11 @@ compatibility_date = "2023-05-09"
 
 
 [[r2_buckets]]
-binding = "BUCKET"
+binding = "audiosBucket"
 bucket_name = "miguelet"
 preview_bucket_name = "miguelet"
+
+[[kv_namespaces]]
+binding = "audiosKV"
+id = "269c0e34dc964a0cb64f8e5bb79cdb93"
+preview_id = "269c0e34dc964a0cb64f8e5bb79cdb93"
