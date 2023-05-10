@@ -1,16 +1,16 @@
 {
-	"configurations": [
-		{
-			"name": "🚀 Dev",
-			"type": "node-terminal",
-			"request": "launch",
-			"command": "pnpm run start"
-		},
-		{
-			"name": "🧪 Test",
-			"type": "node-terminal",
-			"request": "launch",
-			"command": "npm run test"
-		}
-	]
+  "configurations": [
+    {
+      "name": "🚀 Dev",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm run start"
+    },
+    {
+      "name": "🧪 Test",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run test"
+    }
+  ]
 }
