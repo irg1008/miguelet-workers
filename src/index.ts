@@ -25,7 +25,7 @@ app.get('/audios/search/:q/:limit?', async (c) => {
   const index = await getIndex(c.env.audiosKV);
   if (index.length === 0) return c.text('Files not found', 404);
 
-  const searchLimit = limit ? parseInt(limit) : 10;
+  const searchLimit = limit ? Number(limit) : 10;
   const result = search(index, { q, limit: searchLimit });
 
   return c.json(result);
