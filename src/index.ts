@@ -2,8 +2,16 @@ import { Env } from '@/env';
 import { getIndex, initializeIndexValue } from '@/utils/kv';
 import { search } from '@/utils/search';
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 
 const app = new Hono<{ Bindings: Env }>();
+
+app.use(
+  '*',
+  cors({
+    origin: '*',
+  }),
+);
 
 app.get('/audios/:name', async (c) => {
   const { name } = c.req.param();
@@ -16,7 +24,8 @@ app.get('/audios/:name', async (c) => {
   headers.set('content-type', 'audio/ogg');
   headers.set('etag', file.etag);
 
-  return c.body(file.body, { headers });
+  const fielBuffer = await file.arrayBuffer();
+  return c.body(fielBuffer, { headers });
 });
 
 app.get('/audios/search/:q/:limit?', async (c) => {
